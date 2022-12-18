@@ -12,7 +12,7 @@ def get_unigram_features(train_data):
     unigramdataGet = word_vectorizer.fit_transform(train_data['text'].astype('str'))
     unigramdataGet = unigramdataGet.toarray()
 
-    vocab = word_vectorizer.get_feature_names_out()
+    vocab = None#word_vectorizer.get_feature_names_out()
     unigramdata_features=pd.DataFrame(np.round(unigramdataGet, 1), columns=vocab)
     unigramdata_features[unigramdata_features>0] = 1
     return unigramdata_features, word_vectorizer
