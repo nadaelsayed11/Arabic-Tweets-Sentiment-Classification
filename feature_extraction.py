@@ -25,9 +25,9 @@ def get_word_embedding_features(train_data, test_data):
     # Replace the words in each text message with the learned word vector
     words = set(w2v_model.wv.index_to_key)
     X_train_vect = np.array([np.array([w2v_model.wv[i] for i in ls if i in words])
-                            for ls in train_data["text"]])
+                            for ls in train_data["text"]], dtype=object)
     X_test_vect = np.array([np.array([w2v_model.wv[i] for i in ls if i in words])
-                            for ls in test_data['text']])
+                            for ls in test_data['text']], dtype=object)
 
     # Average the word vectors for each sentence (and assign a vector of zeros if the model
     # did not learn any of the words in the text message during training)
