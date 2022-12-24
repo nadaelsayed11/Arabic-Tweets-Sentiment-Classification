@@ -133,7 +133,7 @@ def evaluate(model, test_dataset, batch_size=32):
   print(f'\nTest Accuracy: {total_acc_test}')
   return np.array(y_pred)
 
-def train(model, train_dataset, batch_size=32, epochs=10, learning_rate=0.001):
+def train(model, train_dataset, class_weights, batch_size=32, epochs=10, learning_rate=0.001):
   """
   This function implements the training logic
   Inputs:
@@ -148,7 +148,7 @@ def train(model, train_dataset, batch_size=32, epochs=10, learning_rate=0.001):
   train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 
   # (2) make the criterion cross entropy loss
-  criterion = nn.CrossEntropyLoss(weight=torch.tensor([.5, .4, .1])) 
+  criterion = nn.CrossEntropyLoss(weight=class_weights) 
 
   # (3) create the optimizer (Adam)
   optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
@@ -178,7 +178,7 @@ def train(model, train_dataset, batch_size=32, epochs=10, learning_rate=0.001):
       output = model.forward(sentences=train_input)
       
       # (7) loss calculation (you need to think in this part how to calculate the loss correctly)
-      batch_loss = criterion(output, train_label) 
+      batch_loss = criterion(output, train_label.long()) 
 
       # (8) append the batch loss to the total_loss_train
       total_loss_train += batch_loss.item()
