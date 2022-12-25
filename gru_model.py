@@ -100,7 +100,7 @@ def evaluate(model, test_dataset, batch_size=32):
   
   y_test = [] 
   y_predected = [] 
-  y_pred = [] 
+  y_pred = []  # to save the probabilities of each class
   # (2) disable gradients
   with torch.no_grad():
     report = None

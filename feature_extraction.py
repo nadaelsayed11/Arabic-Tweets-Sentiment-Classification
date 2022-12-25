@@ -1,8 +1,17 @@
 import pandas as pd
 import numpy as np
-from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 from gensim.models import Word2Vec
 from pyarabic.araby import tokenize
+
+# get word count feature
+def get_word_count_features(train_data, test_data):
+    word_vectorizer = CountVectorizer(ngram_range=(1, 3),max_features=2000,token_pattern=r"(?u)\b[أ-ي]*\b")
+    word_vectorizer.fit(train_data['text'].astype('str'))
+    train_word_features = word_vectorizer.transform(train_data['text'].astype('str'))
+    test_word_features = word_vectorizer.transform(test_data['text'].astype('str'))
+    return train_word_features, test_word_features, word_vectorizer
+
 
 # get ngram features TF-IDF
 def get_ngram_features(train_data):

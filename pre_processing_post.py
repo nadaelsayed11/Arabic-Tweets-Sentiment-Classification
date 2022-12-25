@@ -26,14 +26,15 @@ def remove_stop_words(text):
     stop_words = ast.stopwords_list()
     return ' '.join(word for word in text.split() if word not in stop_words)
 
-# a small function to remove stop words
-ArListem = ArabicLightStemmer()
+# a small function to lemmatize the text
 def lemmatiz_word(text):
     # lemmer = qalsadi.lemmatizer.Lemmatizer()
     # return ' '.join(lemmer.lemmatize(word) for word in text.split()) 
     #---------
     #st = ISRIStemmer()
     #return ' '.join(st.stem(word) for word in text.split())
+    #---------
+    ArListem = ArabicLightStemmer()
     return ' '.join(ArListem.light_stem(word) for word in text.split())
     
 def processPost(tweet): 
